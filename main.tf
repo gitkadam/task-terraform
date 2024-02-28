@@ -41,7 +41,7 @@ resource "aws_instance" "example" {
   tags = {
     Name = "terraform-example"
   }
-
+}
 
 # Create Security Group
 resource "aws_security_group" "instance_sg" {
