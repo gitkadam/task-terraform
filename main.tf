@@ -6,11 +6,13 @@ resource "aws_subnet" "public" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
   map_public_ip_on_launch = true
+  availability_zone = "us-east-1a"
 }
 resource "aws_subnet" "public1" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.4.0/24"
   map_public_ip_on_launch = true
+  availability_zone = "us-east-1b"
 }
 
 resource "aws_internet_gateway" "gw" {
@@ -43,6 +45,7 @@ resource "aws_instance" "example" {
   }
 }
 
+
 # Create Security Group
 resource "aws_security_group" "instance_sg" {
   vpc_id = aws_vpc.main.id
@@ -68,7 +71,7 @@ resource "aws_lb" "test" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.instance_sg.id]
-  subnets            = [aws_subnet.public.id, aws_subnet.public1.id ]
+  subnets            = [aws_subnet.public.id, aws_subnet.public1.id]
 
   enable_deletion_protection = true
 
